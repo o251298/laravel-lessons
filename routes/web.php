@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PlaceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::view('/', 'layout');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('places', PlaceController::class);
+Route::match(['post', 'get'], '/places/{id}/photos/add', [PlaceController::class, 'addPhoto']);
+Route::get('/places/delete/{id}', [PlaceController::class, 'destroy']);
